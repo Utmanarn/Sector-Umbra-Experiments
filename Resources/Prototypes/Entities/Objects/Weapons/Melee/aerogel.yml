@@ -1,0 +1,76 @@
+- type: entity
+  id: BaseMeleeWeaponAerogel # This is so that we can make all of the aerogel weaponry use batteries and eventually other components.
+  parent: BaseMeleeWeaponEnergy
+  abstract: true
+  components:
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: SolutionContainerManager
+    solutions:
+      battery:
+        maxVol: 5
+  - type: InjectableSolution
+    solution: battery
+  - type: DrawableSolution
+    solution: battery
+  
+- type: entity
+  name: aerogel sword
+  parent: BaseMeleeWeaponAerogel # Probably gonna add this to the controband list.
+  id: AerogelSword
+  description: Description to be implemented. # TODO: Implement a propper description.
+  components:
+  - type: ItemToggle
+    soundActivate:
+      path: /Audio/Weapons/ebladeon.ogg
+    soundDeactivate:
+      path: /Audio/Weapons/ebladeoff.ogg
+    soundFailToActivate:
+      path: /Audio/Machines/button.ogg
+      params:
+        variation: 0.250
+  - type: ItemToggleMeleeWeapon
+    activatedSoundOnSwing:
+      path: /Audio/Weapons/eblademiss.ogg
+      params:
+        variation: 0.250
+    activatedDamage:
+        types:
+            Slash: 18
+    deactivatedSecret: true
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 4.5
+        Structural: 10
+  - type: ItemToggleActiveSound
+    activeSound:
+      path: /Audio/Weapons/ebladehum.ogg
+  - type: ComponentToggler
+    components:
+    - type: Sharp
+    - type: DisarmMalus
+      malus: 0.4
+    - type: Execution
+      doAfterDuration: 4.0
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/e_sword.rsi
+    layers:
+      - state: e_sword
+      - state: e_sword_blade
+        color: "#FFFFFF"
+        visible: false
+        shader: unshaded
+        map: [ "blade" ]
+  - type: Item
+    size: Small
+    sprite: Objects/Weapons/Melee/e_sword-inhands.rsi
+  - type: PointLight # I doubt this is a good way to disable the PointLight component. But for now it will be like this.
+    enabled: false
+    radius: 0
+    energy: 0
+    color: white
+    netsync: false
