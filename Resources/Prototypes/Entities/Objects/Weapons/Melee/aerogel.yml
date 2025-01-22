@@ -30,6 +30,8 @@
       path: /Audio/Machines/button.ogg
       params:
         variation: 0.250
+  - type: ChargeBasedWeapon
+    eneryPerUse: 500 # Temp testing
   - type: ItemToggleMeleeWeapon
     activatedSoundOnSwing:
       path: /Audio/Weapons/eblademiss.ogg
